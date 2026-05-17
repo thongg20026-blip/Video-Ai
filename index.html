@@ -3,57 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Hub - Tổng hợp Veo 3 & Video AI</title>
-    <!-- Nhúng Tailwind CSS để giao diện đẹp mà không cần viết file CSS riêng -->
+    <title>Dự Án Video AI: Thần Đồng Livestream</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-slate-950 text-white font-sans min-h-screen p-4">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
 
-    <!-- Thanh Tiêu Đề (Header) -->
-    <header class="text-center my-8">
-        <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
-            AI VIDEO HUB
-        </h1>
-        <p class="text-slate-400 text-sm mt-2">Nơi tổng hợp các video đỉnh cao từ Google Veo 3, Sora, Runway...</p>
+    <header class="border-b border-slate-800 bg-slate-900/50 sticky top-0 backdrop-blur z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-black tracking-wider bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+                    AI SCRIPT & VIDEO HUB
+                </h1>
+                <p class="text-xs text-slate-400 mt-1">Kịch bản hài ngắn 2-3 phút phát triển bằng AI</p>
+            </div>
+            <div class="flex gap-2 text-xs">
+                <span class="px-3 py-1 bg-red-500/10 text-red-400 border border-red-500/20 rounded-full font-bold animate-pulse">● Thể loại: Hài Viral</span>
+                <span class="px-3 py-1 bg-slate-800 text-slate-300 rounded-full font-medium">Thời lượng: 2-3 Phút</span>
+            </div>
+        </div>
     </header>
 
-    <!-- Khu vực hiển thị danh sách Video (Grid) -->
-    <main class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <!-- VIDEO 1: GOOGLE VEO 3 -->
-        <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
-            <!-- Phần video (Thay src bằng link video của bạn) -->
-            <video class="w-full aspect-video object-cover" controls loop muted>
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-            </video>
-            <div class="p-4">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Google Veo 3</span>
-                <h3 class="text-base font-bold mt-2 text-slate-100">Phi hành gia ở thung lũng hoa</h3>
-                <p class="text-xs text-slate-400 mt-2 bg-slate-950 p-2 rounded border border-slate-800 line-clamp-2 select-all">
-                    Prompt: Cinematic shot of an astronaut walking through a valley of glowing neon flowers, 8k resolution.
-                </p>
-            </div>
-        </div>
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-12">
 
-        <!-- VIDEO 2: OPENAI SORA -->
-        <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
-            <video class="w-full aspect-video object-cover" controls loop muted>
-                <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
-            </video>
-            <div class="p-4">
-                <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/20">OpenAI Sora</span>
-                <h3 class="text-base font-bold mt-2 text-slate-100">Thành phố Cyberpunk mưa đêm</h3>
-                <p class="text-xs text-slate-400 mt-2 bg-slate-950 p-2 rounded border border-slate-800 line-clamp-2 select-all">
-                    Prompt: Hyper-realistic cyberpunk city street at night, heavy rain, neon signs reflecting, drone shot.
-                </p>
+        <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6">
+            <h2 class="text-lg font-bold text-amber-400 mb-4 flex items-center gap-2">
+                👥 Tuyến Nhân Vật Hài Hước
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/60"><b class="text-orange-400 block mb-1">Nam</b> Người livestream bán hàng, diễn lố, hoạt ngôn.</div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/60"><b class="text-orange-400 block mb-1">Bạn thân</b> Ngồi kế bên đọc comment, chuyên tạt nước lạnh.</div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/60"><b class="text-orange-400 block mb-1">Khách hàng</b> Khách 1 vô tri mua cá viên, Khách 2 trả giá 29k.</div>
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/60"><b class="text-orange-400 block mb-1">Mẹ Nam</b> Trùm cuối cầm chổi phá game, cướp luôn phiên live.</div>
             </div>
-        </div>
+        </section>
 
+        <div class="space-y-10">
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 shadow-2xl">
+                <div class="md:col-span-7 p-6 space-y-4 border-b md:border-b-0 md:border-r border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500 text-slate-950 font-black text-xs px-2 py-0.5 rounded">CẢNH 1</span>
+                        <h3 class="font-bold text-base text-slate-200">Khởi Đầu Nan Giải (0-2 người xem)</h3>
+                    </div>
+                    <div class="text-sm space-y-3 max-h-64 overflow-y-auto pr-2 text-slate-300">
+                        <p><b class="text-amber-400">Nam (bắn rap):</b> "Hello cả nhà iu! Hôm nay lên siêu phẩm tai nghe Bluetooth xuyên lục địa, pin trâu 7 ngày 7 đêm!"</p>
+                        <p><b class="text-cyan-400">Bạn thân (giọng đều đều):</b> "Mắt xem hiện tại: 2 người. Một người là nick ảo của mày, người kia là tao."</p>
+                        <p><b class="text-purple-400">Khách 1 (comment):</b> "Shop ơi có ship cá viên chiên nước mắm không?"</p>
+                        <p><b class="text-amber-400">Nam (nổi quạu):</b> "Dạ anh ơi đây bán phụ kiện công nghệ chứ có phải tiệm cá viên đâu anh? Không ship!"</p>
+                    </div>
+                </div>
+                <div class="md:col-span-5 bg-slate-950 p-4 flex flex-col justify-between min-h-[250px]">
+                    <span class="text-xs text-slate-500 mb-2 font-mono">🎬 AI Video Preview:</span>
+                    <video class="w-full aspect-video rounded-xl object-cover border border-slate-800" controls loop muted shadow-lg>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    </video>
+                    <div class="mt-3 text-[11px] text-slate-400 bg-slate-900 p-2 rounded border border-slate-800/50">
+                        <span class="font-bold text-amber-500">AI Prompt gợi ý:</span> A young Vietnamese man energetic livestreaming inside a room, holding bluetooth earphones, vertical video format.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 shadow-2xl">
+                <div class="md:col-span-7 p-6 space-y-4 border-b md:border-b-0 md:border-r border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500 text-slate-950 font-black text-xs px-2 py-0.5 rounded">CẢNH 2</span>
+                        <h3 class="font-bold text-base text-slate-200">Cuộc Chiến Săn Deal Vô Tri</h3>
+                    </div>
+                    <div class="text-sm space-y-3 max-h-64 overflow-y-auto pr-2 text-slate-300">
+                        <p><b class="text-amber-400">Nam (đập bàn):</b> "Giá gốc 599k hôm nay cắt máu ăn thề chỉ còn 299k! Duy nhất 3 suất!"</p>
+                        <p><b class="text-pink-400">Khách 2 (comment):</b> "29k chốt đơn, không nói nhiều."</p>
+                        <p><b class="text-amber-400">Nam (trợn mắt):</b> "Anh ơi trả vậy tiền đâu em ăn cơm? Thêm số 9 vô thành 299k giùm em!"</p>
+                        <p><b class="text-pink-400">Khách 2 (rep):</b> "Thôi nể shop 39k final, tặng kèm thêm cặp AirPods Pro 2 đi."</p>
+                        <p><b class="text-amber-400">Nam (vả mặt):</b> "Dạ để em ship luôn cái sổ đỏ nhà em qua cho anh vừa lòng nha!"</p>
+                    </div>
+                </div>
+                <div class="md:col-span-5 bg-slate-950 p-4 flex flex-col justify-between min-h-[250px]">
+                    <span class="text-xs text-slate-500 mb-2 font-mono">🎬 AI Video Preview:</span>
+                    <video class="w-full aspect-video rounded-xl object-cover border border-slate-800" controls loop muted>
+                        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+                    </video>
+                    <div class="mt-3 text-[11px] text-slate-400 bg-slate-900 p-2 rounded border border-slate-800/50">
+                        <span class="font-bold text-amber-500">AI Prompt gợi ý:</span> Close up on a funny face of a Vietnamese streamer reacting with shock and facepalming in front of camera.
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 shadow-2xl">
+                <div class="md:col-span-7 p-6 space-y-4 border-b md:border-b-0 md:border-r border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500 text-slate-950 font-black text-xs px-2 py-0.5 rounded">CẢNH 3 & 4</span>
+                        <h3 class="font-bold text-base text-slate-200">Trùm Cuối Xuất Hiện & Cuộc Đổi Ngôi</h3>
+                    </div>
+                    <div class="text-sm space-y-3 max-h-64 overflow-y-auto pr-2 text-slate-300">
+                        <p><b class="text-red-400">Mẹ (hét lớn cầm chổi):</b> "Thằng Nam! Mày dám lấy cái tai nghe tao mới mua đi bán hả?!"</p>
+                        <p><b class="text-cyan-400">Bạn thân (la lên):</b> "Mắt xem vọt lên 20.000 người rồi Nam ơi! Lên xu hướng rồi!"</p>
+                        <p><b class="text-red-400">Mẹ (đẩy Nam ra, chiếm sóng):</b> "Chào 20 ngàn anh em nha! Tai nghe này xịn lắm mẹ bán 399k freeship! Bấm giỏ hàng góc trái nha mấy đứa!"</p>
+                        <p><b class="text-amber-400">Nam (mếu máo ngồi bệt góc nhà):</b> "Nhưng mà... đây là tài khoản của tôi mà..."</p>
+                    </div>
+                </div>
+                <div class="md:col-span-5 bg-slate-950 p-4 flex flex-col justify-between min-h-[250px]">
+                    <span class="text-xs text-slate-500 mb-2 font-mono">🎬 AI Video Preview:</span>
+                    <video class="w-full aspect-video rounded-xl object-cover border border-slate-800" controls loop muted>
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                    </video>
+                    <div class="mt-3 text-[11px] text-slate-400 bg-slate-900 p-2 rounded border border-slate-800/50">
+                        <span class="font-bold text-amber-500">AI Prompt gợi ý:</span> An expressive middle-aged Vietnamese mother happily talking to a smartphone live camera, waving her hand, comedic tone.
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <!-- Chân trang -->
-    <footer class="text-center text-xs text-slate-600 mt-12 pb-6">
-        © 2026 AI Video Hub. Được xây dựng hoàn toàn trên iPhone với GitHub Pages.
+    <footer class="text-center text-xs text-slate-600 border-t border-slate-900 mt-16 py-8 bg-slate-950">
+        <p>Kịch bản thuộc bản quyền cá nhân. Hệ thống chạy 0 đồng bằng GitHub Pages trên iOS.</p>
     </footer>
 
 </body>
