@@ -3,248 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEO 3 Unrestricted - AI Video Automation Studio</title>
-    <!-- Nhúng thư viện Tailwind CSS thế hệ mới để thiết kế giao diện điện ảnh -->
+    <title>VEO 3 Unrestricted - Real AI Video Generator</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    </style>
+    <!-- Nhúng thư viện kết nối API của Hugging Face -->
+    <script type="module">
+        import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client@1.8.1/dist/index.min.js";
+        window.GradioClient = Client;
+    </script>
 </head>
-<body class="bg-black text-slate-100 min-h-screen selection:bg-purple-500/30">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
-    <!-- THANH ĐIỀU HƯỚNG SANG CHẢNH (HEADER) -->
-    <header class="border-b border-slate-900 bg-black/80 sticky top-0 backdrop-blur-md z-50">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-purple-600 via-violet-600 to-amber-500 flex items-center justify-center font-black text-white text-xl shadow-lg shadow-purple-500/20">V3</div>
-                <div>
-                    <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
-                        VEO 3 <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded border border-purple-500/30 font-mono">UNRESTRICTED</span>
-                    </h1>
-                    <p class="text-xs text-slate-500">Hệ thống quản lý kịch bản và xuất bản Video AI không giới hạn</p>
-                </div>
-            </div>
-            
-            <!-- KHU VỰC TẢI VIDEO THÀNH PHẨM TỪ GITHUB ACTIONS -->
-            <div class="flex items-center gap-3">
-                <a href="#studio" class="text-xs font-semibold px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl transition">
-                    🎬 Vào Studio
-                </a>
-                <a href="https://github.com" target="_blank" class="text-xs font-bold px-4 py-2 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white rounded-xl shadow-md shadow-purple-600/10 flex items-center gap-1.5 transition">
-                    ⚡ Tải Thành Phẩm (0đ)
-                </a>
-            </div>
+    <header class="border-b border-slate-900 bg-slate-900/40 p-4 sticky top-0 backdrop-blur-md z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-amber-400">VEO 3 UNRESTRICTED</h1>
+            <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-500/20">Hệ thống Trực tuyến</span>
         </div>
     </header>
 
-    <!-- CONTAINER CHÍNH -->
-    <main class="max-w-6xl mx-auto px-4 py-10 space-y-12" id="studio">
+    <main class="max-w-4xl mx-auto p-4 py-8 w-full flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
         
-        <!-- PANEL ĐIỀU KHIỂN & TỔNG QUAN DỰ ÁN -->
-        <section class="bg-gradient-to-b from-slate-900/40 to-slate-950 border border-slate-900 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl -z-10"></div>
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div class="space-y-2">
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Dự án: Livestream Hài</span>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">Thời lượng: 2-3 phút</span>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Định dạng: 9:16 (TikTok/Reels)</span>
-                    </div>
-                    <h2 class="text-2xl font-black text-white">Kịch bản Gốc: THẦN ĐỒNG LIVESTREAM</h2>
-                    <p class="text-sm text-slate-400 max-w-2xl">Hệ thống phân tách mạch truyện thành các phân cảnh độc lập để nạp prompt vào AI mà không lo bị giới hạn ký tự hay độ dài thời lượng phim.</p>
-                </div>
+        <!-- BÊN TRÁI: Ô NHẬP LỆNH KỊCH BẢN -->
+        <div class="space-y-6 bg-slate-900/30 p-6 rounded-3xl border border-slate-900">
+            <div>
+                <label class="block text-sm font-bold text-purple-400 mb-2">1. Nhập ý tưởng/Kịch bản video của bạn:</label>
+                <textarea id="promptInput" rows="5" class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition font-sans" placeholder="Ví dụ: A young energetic Vietnamese streamer inside a bedroom talking to a smartphone live camera, comedic overacting expressions, vertical 9:16 cinematic..."></textarea>
             </div>
 
-            <!-- DANH SÁCH NHÂN VẬT -->
-            <div class="mt-6 pt-6 border-t border-slate-900 grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-black/40 p-3.5 rounded-2xl border border-slate-900 text-xs">
-                    <span class="font-bold text-amber-400 block mb-1">🎙️ Nam (Streamer)</span>
-                    <span class="text-slate-400">Hoạt ngôn, diễn lố, tìm mọi cách để bán được hàng.</span>
-                </div>
-                <div class="bg-black/40 p-3.5 rounded-2xl border border-slate-900 text-xs">
-                    <span class="font-bold text-cyan-400 block mb-1">🕶️ Bạn Thân</span>
-                    <span class="text-slate-400">Ngồi đọc comment, chuyên dội gáo nước lạnh vào Nam.</span>
-                </div>
-                <div class="bg-black/40 p-3.5 rounded-2xl border border-slate-900 text-xs">
-                    <span class="font-bold text-fuchsia-400 block mb-1">💬 Khách Vô Tri</span>
-                    <span class="text-slate-400">Đòi mua cá viên chiên và trả giá tai nghe 29k.</span>
-                </div>
-                <div class="bg-black/40 p-3.5 rounded-2xl border border-slate-900 text-xs">
-                    <span class="font-bold text-red-400 block mb-1">🧹 Mẹ Nam (Trùm Cuối)</span>
-                    <span class="text-slate-400">Cầm chổi quét nhà lao vào đòi lại tai nghe, cướp luôn phiên live.</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- KHU VỰC THIẾT KẾ PHÂN CẢNH VÀ HIỂN THỊ VIDEO (VEO 3 STYLE) -->
-        <section class="space-y-8">
+            <button id="generateBtn" onclick="generateAiVideo()" class="w-full py-4 bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600 text-white font-bold rounded-2xl shadow-lg shadow-purple-500/10 transition transform active:scale-98 flex items-center justify-center gap-2">
+                <span>🎬 BẮT ĐẦU TẠO VIDEO AI (FREE)</span>
+            </button>
             
-            <!-- CẢNH 1 -->
-            <div class="bg-slate-950 border border-slate-900 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-xl hover:border-purple-900/30 transition-all duration-300">
-                <!-- Cột trái: Kịch bản chi tiết & Trình điều khiển linh hoạt -->
-                <div class="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-900 bg-gradient-to-br from-slate-950 to-black">
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-purple-600 text-white font-black text-[11px] px-2.5 py-0.5 rounded-md font-mono shadow-md">SCENE 01</span>
-                                <h3 class="font-bold text-lg text-white">Khởi Đầu Nan Giải</h3>
-                            </div>
-                            <span class="text-xs font-mono text-slate-500">⏱️ Thời lượng gợi ý: 30-40s</span>
-                        </div>
-                        
-                        <!-- Lời thoại -->
-                        <div class="space-y-3.5 text-sm leading-relaxed text-slate-300 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-amber-400">Nam (vuốt tóc bảnh bao, cười công nghiệp):</b> "Hello cả nhà iu đã đến với phiên live chấn động ngày hôm nay! Hôm nay em lên siêu phẩm tai nghe Bluetooth pin trâu 7 ngày 7 đêm luôn!"</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-cyan-400">Bạn thân (giọng đều đều):</b> "Mắt xem hiện tại... 2 người. Một người là nick ảo của mày, người còn lại là tao."</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-fuchsia-400">Khách 1 (comment):</b> "Shop ơi có ship cá viên chiên nước mắm không? Thèm quá."</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-amber-400">Nam (đứng hình 2 giây rồi nổi quạu):</b> "Dạ anh ơi đây bán phụ kiện công nghệ chứ tiệm cá viên đâu? Không ship nha!"</p>
-                        </div>
-                    </div>
+            <p class="text-[11px] text-slate-500 leading-relaxed">⚠️ <b>Mẹo nhỏ:</b> Do xài ké máy chủ miễn phí, bạn nên viết prompt bằng tiếng Anh (dùng Google Dịch dịch kịch bản sang) để AI hiểu chuẩn và ra clip đẹp nhất nhé.</p>
+        </div>
 
-                    <!-- Đường link điều khiển phụ trợ cho Cảnh 1 -->
-                    <div class="mt-6 pt-4 border-t border-slate-900 flex flex-wrap gap-2">
-                        <a href="https://tiktok.com" target="_blank" class="px-3 py-2 bg-black hover:bg-slate-900 border border-slate-800 rounded-xl text-xs font-semibold text-slate-200 inline-flex items-center gap-1.5 transition">
-                            🎵 Xem demo TikTok
-                        </a>
-                        <a href="https://drive.google.com" target="_blank" class="px-3 py-2 bg-purple-950/40 hover:bg-purple-900/40 text-purple-400 border border-purple-900/30 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition">
-                            📂 Kho âm thanh cảnh 1
-                        </a>
-                    </div>
+        <!-- BÊN PHẢI: MÀN HÌNH HIỂN THỊ KẾT QUẢ VEO 3 -->
+        <div class="flex flex-col justify-between bg-black p-6 rounded-3xl border border-slate-900 aspect-[9/16] md:aspect-auto">
+            <div>
+                <span class="text-xs font-mono text-slate-500 block mb-3">🖥️ BÀN DỰNG HOÀN THÀNH:</span>
+                
+                <!-- Hiệu ứng Loading khi đang chờ tạo video -->
+                <div id="loadingState" class="hidden flex-col items-center justify-center space-y-4 py-20 text-center">
+                    <div class="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-sm text-purple-400 font-medium">AI đang cày cuốc dựng video cho bạn...<br><span class="text-xs text-slate-500">(Mất khoảng 1-3 phút tùy độ dài, đừng tắt web nhé)</span></p>
                 </div>
 
-                <!-- Cột phải: Trình phát Video AI kết quả -->
-                <div class="lg:col-span-5 bg-black p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-mono text-slate-500">🎬 MÀN HÌNH BÀN DỰNG AI:</span>
-                            <span class="text-[10px] bg-amber-500/10 text-amber-400 font-mono px-2 py-0.5 rounded border border-amber-500/20">Kling / Veo 3 Engine</span>
-                        </div>
-                        <!-- Đường dẫn video thô (Đổi sang file của bạn bằng cách thế chỗ src) -->
-                        <div class="relative group rounded-2xl overflow-hidden border border-slate-900 bg-slate-950 aspect-video flex items-center justify-center">
-                            <video class="w-full h-full object-cover" controls loop muted>
-                                <source src="canh1.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                    
-                    <!-- Câu lệnh AI tạo ra phân cảnh này -->
-                    <div class="mt-4 bg-slate-900/40 border border-slate-900 p-3 rounded-xl">
-                        <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider block mb-1">Prompt Câu lệnh gốc:</span>
-                        <p class="text-xs text-slate-400 font-mono leading-normal select-all">A young energetic Vietnamese streamer inside a bedroom talking to a smartphone live camera, comedic overacting expressions, vertical 9:16 cinematic.</p>
-                    </div>
-                </div>
+                <!-- Trình phát video khi tạo xong -->
+                <video id="videoResult" class="w-full rounded-2xl border border-slate-900 shadow-2xl" controls loop muted autoplay></video>
             </div>
 
-            <!-- CẢNH 2 -->
-            <div class="bg-slate-950 border border-slate-900 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-xl hover:border-purple-900/30 transition-all duration-300">
-                <div class="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-900 bg-gradient-to-br from-slate-950 to-black">
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-purple-600 text-white font-black text-[11px] px-2.5 py-0.5 rounded-md font-mono shadow-md">SCENE 02</span>
-                                <h3 class="font-bold text-lg text-white">Cuộc Chiến Săn Deal Vô Tri</h3>
-                            </div>
-                            <span class="text-xs font-mono text-slate-500">⏱️ Thời lượng gợi ý: 35-45s</span>
-                        </div>
-                        
-                        <div class="space-y-3.5 text-sm leading-relaxed text-slate-300 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-amber-400">Nam (đập bàn cái rầm):</b> "Hôm nay em tri ân cắt máu ăn thề, tai nghe chỉ còn 299k! Duy nhất 3 suất!"</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-fuchsia-400">Khách 2 (comment):</b> "29k chốt đơn, không nói nhiều."</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-amber-400">Nam (trợn ngược mắt, ôm ngực):</b> "Anh ơi anh trả giá vậy rồi tiền đâu em ăn cơm? Thêm số 9 vô nữa giùm em."</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-fuchsia-400">Khách 2:</b> "Thôi nể shop, 39k final. Chính hãng thì tặng thêm cặp AirPods Pro 2 đi."</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-amber-400">Nam (lấy tay tự vả vào mặt bất lực):</b> "Dạ để em ship luôn cái sổ đỏ nhà em qua cho anh vừa lòng nha!"</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-4 border-t border-slate-900 flex flex-wrap gap-2">
-                        <a href="https://tiktok.com" target="_blank" class="px-3 py-2 bg-black hover:bg-slate-900 border border-slate-800 rounded-xl text-xs font-semibold text-slate-200 inline-flex items-center gap-1.5 transition">
-                            🎵 Xem demo TikTok
-                        </a>
-                        <a href="https://drive.google.com" target="_blank" class="px-3 py-2 bg-purple-950/40 hover:bg-purple-900/40 text-purple-400 border border-purple-900/30 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition">
-                            📁 Tải Green Screen Meme
-                        </a>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-5 bg-black p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-mono text-slate-500">🎬 MÀN HÌNH BÀN DỰNG AI:</span>
-                            <span class="text-[10px] bg-amber-500/10 text-amber-400 font-mono px-2 py-0.5 rounded border border-amber-500/20">Luma Dream / Veo 3 Engine</span>
-                        </div>
-                        <div class="relative group rounded-2xl overflow-hidden border border-slate-900 bg-slate-950 aspect-video flex items-center justify-center">
-                            <video class="w-full h-full object-cover" controls loop muted>
-                                <source src="canh2.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 bg-slate-900/40 border border-slate-900 p-3 rounded-xl">
-                        <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider block mb-1">Prompt Câu lệnh gốc:</span>
-                        <p class="text-xs text-slate-400 font-mono leading-normal select-all">Close-up shot of a funny dynamic reaction of a young Vietnamese guy facepalming and crying comically, looking directly into the camera lens.</p>
-                    </div>
-                </div>
+            <div class="mt-4" id="downloadArea" style="display:none;">
+                <a id="downloadBtn" href="#" download="veo3_unrestricted_video.mp4" class="w-full py-2.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs font-bold text-center block transition text-emerald-400">
+                    📥 Tải Video Xuống Cuộn Camera iPhone
+                </a>
             </div>
-
-            <!-- CẢNH 3 & CẢNH CUỐI -->
-            <div class="bg-slate-950 border border-slate-900 rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-xl hover:border-purple-900/30 transition-all duration-300">
-                <div class="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-900 bg-gradient-to-br from-slate-950 to-black">
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="bg-purple-600 text-white font-black text-[11px] px-2.5 py-0.5 rounded-md font-mono shadow-md">SCENE 03 & 04</span>
-                                <h3 class="font-bold text-lg text-white">Drama Bất Ngờ & Cuộc Đổi Ngôi</h3>
-                            </div>
-                            <span class="text-xs font-mono text-slate-500">⏱️ Thời lượng gợi ý: 50-60s</span>
-                        </div>
-                        
-                        <div class="space-y-3.5 text-sm leading-relaxed text-slate-300 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-red-400">Mẹ (tay cầm cây chổi quét nhà, đằng đằng sát khí):</b> "Thằng Nam! Mày ngon dữ heng! Mày dám lấy cái tai nghe tao mới mua đi bán hả?!"</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-cyan-400">Bạn thân (la toán lên):</b> "View vọt lên 20 ngàn người rồi Nam ơi! Lên xu hướng rồi!"</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-red-400">Mẹ (đẩy thẳng Nam ra, ngồi chễm chệ trước camera cười tươi):</b> "Chào 20 ngàn anh em nha! Tai nghe này xịn lắm mẹ bán 399k freeship! Mấy đứa bấm giỏ hàng nha!"</p>
-                            <p class="bg-slate-900/30 p-2.5 rounded-xl border border-slate-900/50"><b class="text-amber-400">Nam (mếu máo ngồi bệt xuống đất nhìn bất lực):</b> "...nhưng mà... đây là kênh của tôi mà..."</p>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 pt-4 border-t border-slate-900 flex flex-wrap gap-2">
-                        <a href="https://tiktok.com" target="_blank" class="px-3 py-2 bg-black hover:bg-slate-900 border border-slate-800 rounded-xl text-xs font-semibold text-slate-200 inline-flex items-center gap-1.5 transition">
-                            🎵 Xem demo TikTok
-                        </a>
-                        <a href="https://capcut.com" target="_blank" class="px-3 py-2 bg-purple-950/40 hover:bg-purple-900/40 text-purple-400 border border-purple-900/30 rounded-xl text-xs font-semibold inline-flex items-center gap-1.5 transition">
-                            ✂️ Mẫu Edit CapCut gốc
-                        </a>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-5 bg-black p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-xs font-mono text-slate-500">🎬 MÀN HÌNH BÀN DỰNG AI:</span>
-                            <span class="text-[10px] bg-amber-500/10 text-amber-400 font-mono px-2 py-0.5 rounded border border-amber-500/20">Runway Gen-3 / Veo 3 Engine</span>
-                        </div>
-                        <div class="relative group rounded-2xl overflow-hidden border border-slate-900 bg-slate-950 aspect-video flex items-center justify-center">
-                            <video class="w-full h-full object-cover" controls loop muted>
-                                <source src="canh3.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4 bg-slate-900/40 border border-slate-900 p-3 rounded-xl">
-                        <span class="text-[10px] font-bold text-purple-400 uppercase tracking-wider block mb-1">Prompt Câu lệnh gốc:</span>
-                        <p class="text-xs text-slate-400 font-mono leading-normal select-all">An expressive middle-aged Vietnamese mother happily talking to a smartphone livestream camera, waving her hand with a big warm smile, comedic vibe.</p>
-                    </div>
-                </div>
-            </div>
-
-        </section>
+        </div>
     </main>
 
-    <!-- FOOTER CHÂN TRANG CAO CẤP -->
-    <footer class="text-center text-xs text-slate-600 border-t border-slate-900 py-10 bg-black">
-        <p class="mb-2">Hệ thống phân tách dữ liệu kịch bản mở rộng độc lập cho nhà sáng tạo nội dung AI.</p>
-        <p class="text-[11px] text-slate-700">Được xây dựng 100% trên thiết bị di động iOS thông qua nền tảng đám mây GitHub Pages.</p>
-    </footer>
+    <!-- ĐOẠN JAVASCRIPT ĐIỀU KHIỂN "NÃO AI" -->
+    <script>
+        async function generateAiVideo() {
+            const promptText = document.getElementById("promptInput").value.trim();
+            const generateBtn = document.getElementById("generateBtn");
+            const loadingState = document.getElementById("loadingState");
+            const videoResult = document.getElementById("videoResult");
+            const downloadArea = document.getElementById("downloadArea");
+            const downloadBtn = document.getElementById("downloadBtn");
+
+            if (!promptText) {
+                alert("Vui lòng nhập kịch bản hoặc ý tưởng trước khi bấm tạo!");
+                return;
+            }
+
+            // Trạng thái chuẩn bị chạy
+            generateBtn.disabled = true;
+            generateBtn.innerText = "⚡ ĐANG KẾT NỐI MÁY CHỦ AI...";
+            videoResult.style.display = "none";
+            loadingState.style.display = "flex";
+            downloadArea.style.display = "none";
+
+            try {
+                // Gọi API kết nối với một mô hình Text-To-Video đang mở trên Hugging Face
+                // Ở đây sử dụng không gian demo mô hình LTX-Video hoặc Mochi ổn định công cộng
+                const app = await window.GradioClient.connect("multimodalart/LTX-Video");
+                
+                // Gửi prompt của bạn lên máy chủ AI để xử lý
+                const result = await app.predict("/predict", [
+                    promptText, // Lệnh prompt chữ của bạn
+                    "",         // Negative prompt (bỏ trống)
+                    1,          // Số lượng video muốn tạo
+                    25,         // Số bước xử lý hình ảnh (Steps)
+                    5.5         // Độ bám sát prompt (Guidance Scale)
+                ]);
+
+                // Lấy link file video (.mp4) mà AI vừa đẻ ra từ bộ nhớ máy chủ
+                const videoUrl = result.data[0].video.url;
+
+                // Hiển thị kết quả lên giao diện web
+                loadingState.style.display = "none";
+                videoResult.src = videoUrl;
+                videoResult.style.display = "block";
+                
+                // Mở nút tải về cho iPhone
+                downloadBtn.href = videoUrl;
+                downloadArea.style.display = "block";
+
+            } catch (error) {
+                console.error(error);
+                alert("Máy chủ AI miễn phí đang quá tải hoặc cấu hình bị đổi, hãy thử lại sau ít phút hoặc đổi sang prompt ngắn hơn nhé!");
+                loadingState.style.display = "none";
+                videoResult.style.display = "block";
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.innerText = "🎬 BẮT ĐẦU TẠO VIDEO AI (FREE)";
+            }
+        }
+    </script>
 
 </body>
 </html>
