@@ -3,81 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video Generator - Mobile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>AI Video Hub - Tổng hợp Veo 3 & Video AI</title>
+    <!-- Nhúng Tailwind CSS để giao diện đẹp mà không cần viết file CSS riêng -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-slate-950 text-white font-sans min-h-screen p-4">
 
-    <div class="max-w-md w-full bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700">
-        <h1 class="text-2xl font-bold mb-6 text-center text-indigo-400">AI Video Infinite (iOS)</h1>
+    <!-- Thanh Tiêu Đề (Header) -->
+    <header class="text-center my-8">
+        <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 to-fuchsia-500 bg-clip-text text-transparent">
+            AI VIDEO HUB
+        </h1>
+        <p class="text-slate-400 text-sm mt-2">Nơi tổng hợp các video đỉnh cao từ Google Veo 3, Sora, Runway...</p>
+    </header>
+
+    <!-- Khu vực hiển thị danh sách Video (Grid) -->
+    <main class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Ô dán link API Cloud -->
-        <div class="mb-4">
-            <label class="block text-xs font-medium mb-1 text-gray-400">Cấu hình API URL (Từ Colab/RunPod):</label>
-            <input type="text" id="apiUrl" class="w-full p-2 bg-gray-700 rounded-lg border border-gray-600 text-sm focus:outline-none focus:border-indigo-500" placeholder="https://xxxx.ngrok-free.app">
+        <!-- VIDEO 1: GOOGLE VEO 3 -->
+        <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+            <!-- Phần video (Thay src bằng link video của bạn) -->
+            <video class="w-full aspect-video object-cover" controls loop muted>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            </video>
+            <div class="p-4">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Google Veo 3</span>
+                <h3 class="text-base font-bold mt-2 text-slate-100">Phi hành gia ở thung lũng hoa</h3>
+                <p class="text-xs text-slate-400 mt-2 bg-slate-950 p-2 rounded border border-slate-800 line-clamp-2 select-all">
+                    Prompt: Cinematic shot of an astronaut walking through a valley of glowing neon flowers, 8k resolution.
+                </p>
+            </div>
         </div>
 
-        <div class="mb-4">
-            <label class="block text-sm font-medium mb-1">Nhập mô tả kịch bản:</label>
-            <textarea id="prompt" rows="3" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 text-sm focus:outline-none" placeholder="Ví dụ: Một phi hành gia trên sao hỏa..."></textarea>
+        <!-- VIDEO 2: OPENAI SORA -->
+        <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+            <video class="w-full aspect-video object-cover" controls loop muted>
+                <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+            </video>
+            <div class="p-4">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/20">OpenAI Sora</span>
+                <h3 class="text-base font-bold mt-2 text-slate-100">Thành phố Cyberpunk mưa đêm</h3>
+                <p class="text-xs text-slate-400 mt-2 bg-slate-950 p-2 rounded border border-slate-800 line-clamp-2 select-all">
+                    Prompt: Hyper-realistic cyberpunk city street at night, heavy rain, neon signs reflecting, drone shot.
+                </p>
+            </div>
         </div>
 
-        <div class="mb-6">
-            <label class="block text-sm font-medium mb-1">Thời lượng (giây):</label>
-            <input type="number" id="duration" value="30" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 text-sm">
-        </div>
+    </main>
 
-        <button onclick="generateVideo()" id="generateBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 py-3 rounded-lg font-bold transition">
-            Bắt Đầu Tạo Video
-        </button>
+    <!-- Chân trang -->
+    <footer class="text-center text-xs text-slate-600 mt-12 pb-6">
+        © 2026 AI Video Hub. Được xây dựng hoàn toàn trên iPhone với GitHub Pages.
+    </footer>
 
-        <div id="status" class="mt-4 text-center text-sm text-indigo-300 hidden">Đang xử lý trên Cloud... Vui lòng đợi...</div>
-        
-        <div id="resultContainer" class="mt-6 hidden">
-            <video id="videoResult" controls class="w-full rounded-lg border border-gray-700 shadow-lg"></video>
-            <a id="downloadBtn" href="#" download="ai-video.mp4" class="block text-center mt-4 bg-green-600 py-2 rounded-lg font-medium">Tải Video Về iPhone</a>
-        </div>
-    </div>
-
-    <script>
-        async function generateVideo() {
-            const prompt = document.getElementById('prompt').value;
-            const duration = document.getElementById('duration').value;
-            const apiUrl = document.getElementById('apiUrl').value.trim();
-            
-            if(!prompt || !apiUrl) return alert("Vui lòng nhập đầy đủ Prompt và API URL!");
-
-            const btn = document.getElementById('generateBtn');
-            const status = document.getElementById('status');
-            const resultContainer = document.getElementById('resultContainer');
-            
-            btn.disabled = true;
-            status.classList.remove('hidden');
-            resultContainer.classList.add('hidden');
-
-            try {
-                // Gọi tới link Cloud API bạn dán vào
-                const response = await fetch(`${apiUrl}/api/v1/generate-infinite`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: prompt, total_duration_seconds: parseInt(duration) })
-                });
-                
-                const data = await response.json();
-                if(data.success) {
-                    document.getElementById('videoResult').src = data.video_url;
-                    document.getElementById('downloadBtn').href = data.video_url;
-                    resultContainer.classList.remove('hidden');
-                } else {
-                    alert("Lỗi: " + data.error);
-                }
-            } catch (error) {
-                alert("Không thể kết nối đến Cloud Server. Hãy kiểm tra lại link API URL.");
-            } finally {
-                btn.disabled = false;
-                status.classList.add('hidden');
-            }
-        }
-    </script>
 </body>
 </html>
